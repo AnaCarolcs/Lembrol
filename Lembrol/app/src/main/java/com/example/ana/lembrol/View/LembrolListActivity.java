@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +27,7 @@ public class LembrolListActivity extends AppCompatActivity {
     private ListView list;
     private SQLiteDatabase dataBase;
 
+    private ArrayList<Integer> idReminder;
     private ArrayAdapter<String> itemAdapter;
     private ArrayList<String> item;
 
@@ -41,6 +43,8 @@ public class LembrolListActivity extends AppCompatActivity {
             textList = (EditText) findViewById(R.id.textListId);
             addButton = (Button) findViewById(R.id.addButtonId);
 
+            //Lista
+            list = (ListView) findViewById(R.id.listId);
 
             //Banco de Dados
             dataBase = openOrCreateDatabase("appLembrol", MODE_PRIVATE, null);
@@ -53,6 +57,15 @@ public class LembrolListActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     String newText = textList.getText().toString();
                     salveReminder(newText);
+                }
+            });
+
+            list.setLongClickable(true);
+            list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                    removeReminder( idReminder.get( position ) );
+                    return true;
                 }
             });
 
@@ -92,11 +105,9 @@ public class LembrolListActivity extends AppCompatActivity {
             int idTable = cursor.getColumnIndex("id");
             int reminderTable = cursor.getColumnIndex("reminder");
 
-            //Lista
-            list = (ListView) findViewById(R.id.listId);
-
             //Criar adaptador
             item = new ArrayList<String>();
+            idReminder = new ArrayList<Integer>();
             itemAdapter = new ArrayAdapter<String>(getApplicationContext(),
                     android.R.layout.simple_list_item_2,
                     android.R.id.text2,
@@ -107,13 +118,30 @@ public class LembrolListActivity extends AppCompatActivity {
             //listar as tarefas
             cursor.moveToFirst();
             while (cursor != null){
+
                 item.add(cursor.getString(reminderTable));
+                idReminder.add(Integer.parseInt(cursor.getString(idTable)));
+                
                 cursor.moveToNext();
+
             }
 
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void removeReminder(Integer id){
+
+        try{
+
+            dataBase.execSQL("DELETE FROM toDoList WHERE id="+id);
+            recoverReminder();
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
 }

@@ -33,7 +33,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="32dp"
-            android:text="Button"
+            android:text="Minhas listas"
             android:textColor="@android:color/background_dark" />
 
     </LinearLayout>
