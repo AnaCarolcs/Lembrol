@@ -1,5 +1,6 @@
 package com.example.ana.lembrol.View;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        validateUserLoggerIn();
+        //validateUserLoggerIn();
 
         email = (EditText) findViewById(R.id.loginEmailId);
         password = (EditText) findViewById(R.id.loginPasswordId);
@@ -47,12 +48,28 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private  void validateUserLoggerIn(){
+   // private  void validateUserLoggerIn(){
 
-        authentication = FirebaseConfig.getAuthenticationFirebase();
-        if (authentication.getCurrentUser() != null){
-            //openMainActivity();
-        }
+   //     authentication = FirebaseConfig.getAuthenticationFirebase();
+   //     if (authentication.getCurrentUser() != null){
+   //         openMainActivity();
+   //     }
+
+  //  }
+
+    public void openMainActivity(){
+
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
 
     }
+
+    public void openUserRegister(View view){
+
+        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+        startActivity(intent);
+
+    }
+
 }

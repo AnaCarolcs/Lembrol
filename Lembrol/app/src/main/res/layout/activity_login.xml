@@ -26,7 +26,7 @@
         android:layout_height="53dp"
         android:text="LOGAR"
         tools:layout_editor_absoluteX="41dp"
-        android:theme="@style/buttonPattern"
+
         android:layout_marginTop="30dp"
         android:layout_below="@+id/loginPasswordId"
         android:layout_alignLeft="@+id/loginEmailId"
