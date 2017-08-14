@@ -3,10 +3,7 @@ package com.example.ana.lembrol.View;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,7 +15,6 @@ import android.widget.Toast;
 import com.example.ana.lembrol.R;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 public class LembrolListActivity extends AppCompatActivity {
 
