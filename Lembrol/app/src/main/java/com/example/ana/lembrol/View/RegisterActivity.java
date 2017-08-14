@@ -1,5 +1,6 @@
 package com.example.ana.lembrol.View;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -80,7 +81,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     Preference preference = new Preference(RegisterActivity.this);
                                     preference.dataSave(userIdentifier);
 
-                                    //openUserLogin();
+                                    openUserLogin();
 
                                 } else {
 
@@ -105,6 +106,18 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+    public void backLogin(View view){
+
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+        startActivity(intent);
+
+    }
+
+    public void openUserLogin(){
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
 
     }
