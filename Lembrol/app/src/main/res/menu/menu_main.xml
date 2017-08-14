@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/bt_Logout"
+        android:title="Sair"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        />
+
+    <item android:id="@+id/item_search"
+        android:title="Search"
+        android:orderInCategory="300"
+        app:showAsAction="never"
+        android:icon="@drawable/ic_search"
+        />
+
+    <item
+        android:id="@+id/item_list_id"
+        android:icon="@drawable/ic_action_add"
+        android:orderInCategory="400"
+        android:title="New List"
+        app:showAsAction="ifRoom" />
+
+
+
+</menu>
