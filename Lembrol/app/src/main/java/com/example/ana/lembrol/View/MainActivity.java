@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //  progressBar.setVisibility(View.VISIBLE);
+
       /*  buttonSignId = (Button) findViewById(R.id.signId);
 
         buttonSignId.setOnClickListener(new View.OnClickListener() {
@@ -50,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Lembrol");
         setSupportActionBar(toolbar);
+
+        // progressBar.setVisibility(View.GONE);
+        //  onBackPressed();
     }
 
     public void openFragment(){
