@@ -1,10 +1,10 @@
-package com.example.ana.lembrol.View;
+package com.lembrol.ana.View;
 
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
-import com.example.ana.lembrol.R;
+import com.lembrol.ana.R;
 
 public class ReminderActivity extends AppCompatActivity {
 

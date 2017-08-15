@@ -1,7 +1,9 @@
-package com.example.ana.lembrol.View;
+package com.lembrol.ana.View;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,14 +14,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+import android.support.v4.app.Fragment;
 
-import com.example.ana.lembrol.Config.FirebaseConfig;
-import com.example.ana.lembrol.Config.Preference;
-import com.example.ana.lembrol.Model.Reminder;
-import com.example.ana.lembrol.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.lembrol.ana.Config.FirebaseConfig;
+import com.lembrol.ana.Config.Preference;
+import com.lembrol.ana.Model.Reminder;
+import com.lembrol.ana.R;
+import com.lembrol.ana.View.ListTitleFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,22 +34,30 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private DatabaseReference firebase;
 
+    //private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //  progressBar.setVisibility(View.VISIBLE);
+      //  progressBar.setVisibility(View.VISIBLE);
 
-      /*  buttonSignId = (Button) findViewById(R.id.signId);
+        /*
+        buttonLogout = (Button) findViewById(R.id.bt_logoutId);
 
-        buttonSignId.setOnClickListener(new View.OnClickListener() {
+        buttonLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(MainActivity.this, LembrolListActivity.class));
+                authentication = FirebaseConfig.getAuthenticationFirebase();
+                authentication.signOut();
+
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+
             }
-        });*/
+        }); */
 
         openFragment();
 
@@ -53,8 +67,9 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle("Lembrol");
         setSupportActionBar(toolbar);
 
-        // progressBar.setVisibility(View.GONE);
-        //  onBackPressed();
+       // progressBar.setVisibility(View.GONE);
+      //  onBackPressed();
+
     }
 
     public void openFragment(){
@@ -63,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.rl_fragmentId, new TitleListFragment())
+                .replace(R.id.rl_fragmentId, new ListTitleFragment())
                 .commit();
     }
 
@@ -126,8 +141,8 @@ public class MainActivity extends AppCompatActivity {
 
                     firebase = FirebaseConfig.getFirebase();
                     firebase = firebase.child("Titles")
-                            .child(userIdentifier)
-                            .child(titleList)/*.setValue()*/;
+                                        .child(userIdentifier)
+                                        .child(titleList)/*.setValue()*/;
 
                     Reminder reminder = new Reminder();
                     //futuramente setar aqui os dados dos lembretes

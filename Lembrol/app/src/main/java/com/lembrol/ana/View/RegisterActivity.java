@@ -1,4 +1,4 @@
-package com.example.ana.lembrol.View;
+package com.lembrol.ana.View;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -9,10 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.ana.lembrol.Config.Base64Custom;
-import com.example.ana.lembrol.Config.Preference;
-import com.example.ana.lembrol.Model.User;
-import com.example.ana.lembrol.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -21,8 +17,11 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
-
-import com.example.ana.lembrol.Config.FirebaseConfig;
+import com.lembrol.ana.Config.Base64Custom;
+import com.lembrol.ana.Config.FirebaseConfig;
+import com.lembrol.ana.Config.Preference;
+import com.lembrol.ana.Model.User;
+import com.lembrol.ana.R;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -66,43 +65,43 @@ public class RegisterActivity extends AppCompatActivity {
         authentication.createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
                 .addOnCompleteListener(RegisterActivity.this,
                         new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if(task.isSuccessful()){
-                                    Toast.makeText(RegisterActivity.this, "Cadastro efetuado com sucesso",
-                                            Toast.LENGTH_LONG).show();
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(RegisterActivity.this, "Cadastro efetuado com sucesso",
+                            Toast.LENGTH_LONG).show();
 
-                                    FirebaseUser userFirebase =task.getResult().getUser();
+                    FirebaseUser userFirebase =task.getResult().getUser();
 
-                                    String userIdentifier = Base64Custom.code64Base(user.getEmail());
-                                    user.setId(userIdentifier);
-                                    user.save();
+                    String userIdentifier = Base64Custom.code64Base(user.getEmail());
+                    user.setId(userIdentifier);
+                    user.save();
 
-                                    Preference preference = new Preference(RegisterActivity.this);
-                                    preference.dataSave(userIdentifier);
+                    Preference preference = new Preference(RegisterActivity.this);
+                    preference.dataSave(userIdentifier);
 
-                                    openUserLogin();
+                    openUserLogin();
 
-                                } else {
+                } else {
 
-                                    try{
-                                        throw task.getException();
+                    try{
+                        throw task.getException();
 
-                                    } catch (FirebaseAuthWeakPasswordException e) {
-                                        erroException = "Digite uma senha mais forte, contendo mais caracteres e com letras e números";
-                                    } catch (FirebaseAuthInvalidCredentialsException e){
-                                        erroException = "O email informado é invalido";
-                                    } catch (FirebaseAuthUserCollisionException e){
-                                        erroException = "Esse email já está cadastrado";
-                                    } catch (Exception e){
-                                        erroException = "Erro ao efetuar o cadastro";
-                                    }
+                    } catch (FirebaseAuthWeakPasswordException e) {
+                        erroException = "Digite uma senha mais forte, contendo mais caracteres e com letras e números";
+                    } catch (FirebaseAuthInvalidCredentialsException e){
+                        erroException = "O email informado é invalido";
+                    } catch (FirebaseAuthUserCollisionException e){
+                        erroException = "Esse email já está cadastrado";
+                    } catch (Exception e){
+                        erroException = "Erro ao efetuar o cadastro";
+                    }
 
-                                    Toast.makeText(RegisterActivity.this, "Erro: " + erroException,
-                                            Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        });
+                    Toast.makeText(RegisterActivity.this, "Erro: " + erroException,
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
     }
 
@@ -119,4 +118,3 @@ public class RegisterActivity extends AppCompatActivity {
         finish();
     }
 }
-

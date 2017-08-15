@@ -1,4 +1,4 @@
-package com.example.ana.lembrol;
+package com.lembrol.ana;
 
 import org.junit.Test;
 

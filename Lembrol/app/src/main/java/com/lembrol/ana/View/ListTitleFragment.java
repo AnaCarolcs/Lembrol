@@ -1,5 +1,4 @@
-package com.example.ana.lembrol.View;
-
+package com.lembrol.ana.View;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,25 +8,25 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.ana.lembrol.Config.FirebaseConfig;
-import com.example.ana.lembrol.Config.Preference;
-import com.example.ana.lembrol.Model.Reminder;
-import com.example.ana.lembrol.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.lembrol.ana.Config.FirebaseConfig;
+import com.lembrol.ana.Config.Preference;
+import com.lembrol.ana.Model.Reminder;
+import com.lembrol.ana.R;
 
 import java.util.ArrayList;
 
-public class TitleListFragment extends Fragment {
+public class ListTitleFragment extends Fragment {
 
     private ListView listView;
     private ArrayAdapter adapter;
     private ArrayList<String> titles;
     private DatabaseReference firebase;
 
-    public TitleListFragment() {
+    public ListTitleFragment() {
     }
 
     @Override
@@ -36,17 +35,22 @@ public class TitleListFragment extends Fragment {
 
         //Instância objetos
         titles = new ArrayList<>();
-       //titles.add("Escola");
-       //titles.add("Trabalho");
-       //titles.add("Casa");
+        //titles.add("Escola");
+        //titles.add("Trabalho");
+        //titles.add("Casa");
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_title_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_list_title, container, false);
 
         //Monta listview e adapter
         listView = (ListView) view.findViewById(R.id.lv_title_list_id);
-        adapter = new ArrayAdapter(getActivity(), R.layout.title_list, titles);
+        adapter = new ArrayAdapter(getActivity(),R.layout.title_list, titles);
         listView.setAdapter(adapter);
+
+
+
+
+
 
 
 
@@ -86,6 +90,12 @@ public class TitleListFragment extends Fragment {
 
 
 
+
+
+
+
+
         return view;
     }
+
 }

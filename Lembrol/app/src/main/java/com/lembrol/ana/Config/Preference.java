@@ -1,4 +1,4 @@
-package com.example.ana.lembrol.Config;
+package com.lembrol.ana.Config;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -29,5 +29,4 @@ public class Preference {
     public String getIdentifier(){
         return preferences.getString(IDENTIFIER_KEY, null);
     }
-
 }

@@ -1,4 +1,4 @@
-package com.example.ana.lembrol.Model;
+package com.lembrol.ana.Model;
 
 public class Reminder {
 

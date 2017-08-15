@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ana.lembrol.View.LoginActivity"
+    tools:context="com.lembrol.ana.View.LoginActivity"
     android:background="@drawable/lembrolback">
 
     <ImageView
@@ -27,13 +27,12 @@
         android:text="LOGAR"
         tools:layout_editor_absoluteX="41dp"
         android:theme="@style/buttonPattern"
+        android:layout_marginTop="30dp"
         android:layout_below="@+id/loginPasswordId"
         android:layout_alignLeft="@+id/loginEmailId"
         android:layout_alignStart="@+id/loginEmailId"
         android:layout_alignRight="@+id/loginPasswordId"
-        android:layout_alignEnd="@+id/loginPasswordId"
-        android:layout_marginTop="14dp"
-        app:layout_constraintTop_toBottomOf="@+id/loginPasswordId" />
+        android:layout_alignEnd="@+id/loginPasswordId" />
 
     <TextView
         android:id="@+id/tv_goRegister"
@@ -75,4 +74,4 @@
         android:layout_alignLeft="@+id/imageView"
         android:layout_alignStart="@+id/imageView" />
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

@@ -1,4 +1,5 @@
-package com.example.ana.lembrol.Config;
+package com.lembrol.ana.Config;
+
 
 import android.util.Base64;
 
