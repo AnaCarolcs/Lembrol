@@ -29,6 +29,7 @@ public class User {
         this.id = id;
     }
 
+    @Exclude
     public String getName() {
         return name;
     }
@@ -37,6 +38,7 @@ public class User {
         this.name = name;
     }
 
+    @Exclude
     public String getEmail() {
         return email;
     }

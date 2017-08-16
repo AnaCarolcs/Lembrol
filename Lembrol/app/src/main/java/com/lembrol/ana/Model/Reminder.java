@@ -1,11 +1,19 @@
 package com.lembrol.ana.Model;
 
-public class Reminder {
+import java.io.Serializable;
+
+public class Reminder implements Serializable{
 
     private String reminderBody;
     private String titleReminder;
 
-    public Reminder() {
+    public Reminder(String titleReminder, String reminderBody) {
+        this.titleReminder = titleReminder;
+        this.reminderBody = reminderBody;
+    }
+
+    public Reminder(){
+
     }
 
     public String getReminderBody() {
