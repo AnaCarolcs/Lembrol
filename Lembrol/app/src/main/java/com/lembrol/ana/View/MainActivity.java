@@ -2,7 +2,7 @@ package com.lembrol.ana.View;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v4.app.FragmentManager;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -11,21 +11,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
-import android.support.v4.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.lembrol.ana.Config.FirebaseConfig;
 import com.lembrol.ana.Config.Preference;
 import com.lembrol.ana.Model.Reminder;
 import com.lembrol.ana.R;
-import com.lembrol.ana.View.ListTitleFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,32 +32,10 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private DatabaseReference firebase;
 
-    //private ProgressBar progressBar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-      //  progressBar.setVisibility(View.VISIBLE);
-
-        /*
-        buttonLogout = (Button) findViewById(R.id.bt_logoutId);
-
-        buttonLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                authentication = FirebaseConfig.getAuthenticationFirebase();
-                authentication.signOut();
-
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
-
-            }
-        }); */
-
-        openFragment();
 
         authentication = FirebaseConfig.getAuthenticationFirebase();
 
@@ -67,8 +43,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle("Lembrol");
         setSupportActionBar(toolbar);
 
-       // progressBar.setVisibility(View.GONE);
-      //  onBackPressed();
+        openFragment();
 
     }
 
@@ -76,10 +51,9 @@ public class MainActivity extends AppCompatActivity {
         android.app.FragmentManager fragmentManager = getFragmentManager();
         android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.rl_fragmentId, new ListTitleFragment())
-                .commit();
+        fragmentTransaction.add(R.id.rl_fragmentId, new ListTitleFragment());
+        fragmentTransaction.commit();
+
     }
 
     @Override
@@ -125,30 +99,38 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                String titleList = editText.getText().toString();
+                final String titleList = editText.getText().toString();
 
                 //Validar se titulo foi digitado
                 if(titleList.isEmpty()){
                     Toast.makeText(MainActivity.this, "Digite um Título", Toast.LENGTH_LONG).show();
                 }else{
 
-                    //Recuperar os dados do titleList
-
-
                     //Recupera identificador do usuario logado
                     Preference preference = new Preference(MainActivity.this);
-                    String userIdentifier = preference.getIdentifier();
+                    final String userIdentifier = preference.getIdentifier();
 
-                    firebase = FirebaseConfig.getFirebase();
-                    firebase = firebase.child("Titles")
-                                        .child(userIdentifier)
-                                        .child(titleList)/*.setValue()*/;
 
-                    Reminder reminder = new Reminder();
-                    //futuramente setar aqui os dados dos lembretes
-                    reminder.setReminderBody("");
+                    firebase = FirebaseConfig.getFirebase().child("user").child(userIdentifier);
 
-                    firebase.setValue(reminder);
+                    firebase.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                            firebase = FirebaseConfig.getFirebase();
+                            firebase = firebase.child("user")
+                                    .child(userIdentifier)
+                                    .child(titleList)/*.setValue()*/;
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
 
                 }
 
