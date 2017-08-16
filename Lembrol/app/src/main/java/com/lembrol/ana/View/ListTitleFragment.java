@@ -2,6 +2,9 @@ package com.lembrol.ana.View;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,105 +18,86 @@ import com.google.firebase.database.ValueEventListener;
 import com.lembrol.ana.Config.FirebaseConfig;
 import com.lembrol.ana.Config.Preference;
 import com.lembrol.ana.Model.Reminder;
-import com.lembrol.ana.Model.Title;
 import com.lembrol.ana.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class ListTitleFragment extends Fragment {
+public class ListTitleFragment extends android.app.Fragment {
 
-    private ListView listView;
-    private ArrayAdapter adapter;
-    private ArrayList<Reminder> titlesReminder;
+    private TitleAdapter adapter;
+
+    List<String> titlesReminder;
     private DatabaseReference firebase;
     private ValueEventListener valueEventListenerTitle;
+    private RecyclerView mRecyclerView;
 
     public ListTitleFragment() {
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        firebase.addValueEventListener( valueEventListenerTitle );
-    }
+   @Override
+    public void onCreate(Bundle savedInstanceState) {
+       super.onCreate(savedInstanceState);
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        firebase.removeEventListener(valueEventListenerTitle);
-    }
+       //recuperar contatos do firebase
+       Preference preference = new Preference(getActivity());
+       String identifierUser = preference.getIdentifier();
+       firebase = FirebaseConfig.getFirebase()
+               .child("user")
+               .child(identifierUser);
+
+
+       //Listener para recuperar titles
+       valueEventListenerTitle = new ValueEventListener() {
+           @Override
+           public void onDataChange(DataSnapshot dataSnapshot) {
+
+               //Limpar lista
+               titlesReminder.clear();
+
+               //Listar Titles
+               for(DataSnapshot datas: dataSnapshot.getChildren()){
+
+                   String titleKey = datas.getKey();
+            //       Reminder reminder = datas.getValue(Reminder.class);
+                   titlesReminder.add( titleKey );
+
+               }
+               adapter = new TitleAdapter(titlesReminder);
+               mRecyclerView.setAdapter(adapter);
+
+           }
+
+           @Override
+           public void onCancelled(DatabaseError databaseError) {
+
+           }
+       };
+
+       firebase.addValueEventListener( valueEventListenerTitle );
+
+   }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        //Instância objetos
-        titlesReminder = new ArrayList<>();
-        //titles.add("Escola");
-        //titles.add("Trabalho");
-        //titles.add("Casa");
-
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_list_title, container, false);
 
-        //Monta listview e adapter
-        listView = (ListView) view.findViewById(R.id.lv_title_list_id);
+        titlesReminder = new ArrayList<>();
+        //titlesReminder.add(new Reminder("Titulo1", "Qualquer coisa"));
+        //titlesReminder.add(new Reminder("Titulo2", "Qualquer coisa"));
+        //titlesReminder.add(new Reminder("Titulo3", "Qualquer coisa"));
 
-      //  adapter = new ArrayAdapter(getActivity(),R.layout.title_list, titles)
-        adapter = new TitleAdapter(getActivity(), titlesReminder);
+        adapter = new TitleAdapter(titlesReminder);
 
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_list);
 
-        listView.setAdapter(adapter);
+        RecyclerView.LayoutManager layout = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        mRecyclerView.setLayoutManager(layout);
 
-
-
-
-
-
-
-
-        //recuperar contatos do firebase
-        Preference preference = new Preference(getActivity());
-        String identifierUser = preference.getIdentifier();
-        firebase = FirebaseConfig.getFirebase()
-                .child("Titles")
-                .child(identifierUser);
-
-        //Listener para recuperar titles
-        valueEventListenerTitle = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                //Limpar lista
-                titlesReminder.clear();
-
-                //Listar Titles
-                for(DataSnapshot datas: dataSnapshot.getChildren()){
-
-                    //Title title = datas.getValue(Title.class);
-                    Reminder reminder = datas.getValue(Reminder.class);
-                    titlesReminder.add( reminder );
-
-                }
-
-                adapter.notifyDataSetChanged();
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-
-        firebase.addValueEventListener( valueEventListenerTitle );
-
-
-
-
-
-
-
+        mRecyclerView.setAdapter(adapter);
 
 
         return view;
