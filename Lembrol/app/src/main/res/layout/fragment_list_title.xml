@@ -4,12 +4,11 @@
     android:layout_height="match_parent"
     tools:context="com.lembrol.ana.View.ListTitleFragment">
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_list"
+        android:scrollbars="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/lv_title_list_id"
-        android:dividerHeight="1dp"
-        android:divider="@color/colorPrimary"
-        />
+        android:layout_height="match_parent"/>
+
 
 </FrameLayout>
