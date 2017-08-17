@@ -13,7 +13,6 @@ import java.util.List;
 
 public class TitleAdapter extends RecyclerView.Adapter<TitleAdapter.MyViewHolder>{
 
-
     private List<String> titleReminder;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -24,7 +23,6 @@ public class TitleAdapter extends RecyclerView.Adapter<TitleAdapter.MyViewHolder
             titleReminder = (TextView) view.findViewById(R.id.tv_title);
         }
     }
-
 
     public TitleAdapter(List<String> titleReminder) {
         this.titleReminder = titleReminder;
@@ -42,13 +40,10 @@ public class TitleAdapter extends RecyclerView.Adapter<TitleAdapter.MyViewHolder
     public void onBindViewHolder(MyViewHolder holder, int position) {
         String titleKey = titleReminder.get(position);
         holder.titleReminder.setText(titleKey);
-
     }
 
     @Override
     public int getItemCount() {
         return titleReminder.size();
     }
-
-
 }

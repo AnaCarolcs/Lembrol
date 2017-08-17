@@ -29,12 +29,9 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText email;
     private EditText password;
     private Button buttonRegister;
-
     private User user;
     private FirebaseAuth authentication;
-
     public String erroException = "";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +51,6 @@ public class RegisterActivity extends AppCompatActivity {
                 user.setEmail(email.getText().toString());
                 user.setPassword(password.getText().toString());
                 registerUser();
-
             }
         });
     }
@@ -81,19 +77,18 @@ public class RegisterActivity extends AppCompatActivity {
                     preference.dataSave(userIdentifier);
 
                     openUserLogin();
-
                 } else {
-
-                    try{
+                    try {
                         throw task.getException();
 
-                    } catch (FirebaseAuthWeakPasswordException e) {
-                        erroException = "Digite uma senha mais forte, contendo mais caracteres e com letras e números";
-                    } catch (FirebaseAuthInvalidCredentialsException e){
+                    }catch (FirebaseAuthWeakPasswordException e) {
+                        erroException = "Digite uma senha mais forte, contendo mais caracteres " +
+                                "e com letras e números";
+                    }catch (FirebaseAuthInvalidCredentialsException e){
                         erroException = "O email informado é invalido";
-                    } catch (FirebaseAuthUserCollisionException e){
+                    }catch (FirebaseAuthUserCollisionException e){
                         erroException = "Esse email já está cadastrado";
-                    } catch (Exception e){
+                    }catch (Exception e){
                         erroException = "Erro ao efetuar o cadastro";
                     }
 
@@ -102,14 +97,12 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     public void backLogin(View view){
 
         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
         startActivity(intent);
-
     }
 
     public void openUserLogin(){

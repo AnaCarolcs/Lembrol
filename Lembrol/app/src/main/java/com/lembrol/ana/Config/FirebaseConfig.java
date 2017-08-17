@@ -11,7 +11,7 @@ public final class FirebaseConfig {
 
     public static DatabaseReference getFirebase(){
 
-        if(firebaseReference == null) {
+        if(firebaseReference == null){
             firebaseReference = FirebaseDatabase.getInstance().getReference();
         }
 
@@ -25,5 +25,4 @@ public final class FirebaseConfig {
         }
         return authentication;
     }
-
 }

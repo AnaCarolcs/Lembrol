@@ -8,7 +8,6 @@ import com.lembrol.ana.R;
 
 public class ReminderActivity extends AppCompatActivity {
 
-
     private Toolbar toolbar;
 
     @Override

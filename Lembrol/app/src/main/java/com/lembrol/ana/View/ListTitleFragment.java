@@ -33,6 +33,7 @@ public class ListTitleFragment extends android.app.Fragment {
     private RecyclerView mRecyclerView;
 
     public ListTitleFragment() {
+
     }
 
    @Override
@@ -59,13 +60,10 @@ public class ListTitleFragment extends android.app.Fragment {
                for(DataSnapshot datas: dataSnapshot.getChildren()){
 
                    String titleKey = datas.getKey();
-            //       Reminder reminder = datas.getValue(Reminder.class);
                    titlesReminder.add( titleKey );
-
                }
                adapter = new TitleAdapter(titlesReminder);
                mRecyclerView.setAdapter(adapter);
-
            }
 
            @Override
@@ -73,9 +71,7 @@ public class ListTitleFragment extends android.app.Fragment {
 
            }
        };
-
        firebase.addValueEventListener( valueEventListenerTitle );
-
    }
 
     @Override
@@ -86,21 +82,14 @@ public class ListTitleFragment extends android.app.Fragment {
         View view = inflater.inflate(R.layout.fragment_list_title, container, false);
 
         titlesReminder = new ArrayList<>();
-        //titlesReminder.add(new Reminder("Titulo1", "Qualquer coisa"));
-        //titlesReminder.add(new Reminder("Titulo2", "Qualquer coisa"));
-        //titlesReminder.add(new Reminder("Titulo3", "Qualquer coisa"));
 
         adapter = new TitleAdapter(titlesReminder);
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_list);
-
         RecyclerView.LayoutManager layout = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(layout);
-
         mRecyclerView.setAdapter(adapter);
-
 
         return view;
     }
-
 }

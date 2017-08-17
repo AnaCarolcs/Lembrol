@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         openFragment();
-
     }
 
     public void openFragment(){
@@ -53,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentTransaction.add(R.id.rl_fragmentId, new ListTitleFragment());
         fragmentTransaction.commit();
-
     }
 
     @Override
@@ -94,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.setView(editText);
 
 
-        //Configura botões
+        //Configuração dos botões
         alertDialog.setPositiveButton("Adicionar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -121,8 +119,7 @@ public class MainActivity extends AppCompatActivity {
                             firebase = FirebaseConfig.getFirebase();
                             firebase = firebase.child("user")
                                     .child(userIdentifier)
-                                    .child(titleList)/*.setValue()*/;
-
+                                    .child(titleList);
                         }
 
                         @Override
@@ -130,10 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
                         }
                     });
-
-
                 }
-
             }
         });
 
@@ -144,8 +138,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        alertDialog.create();
-        alertDialog.show();
+                alertDialog.create();
+                alertDialog.show();
 
     }
 
@@ -154,6 +148,5 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
-
     }
 }

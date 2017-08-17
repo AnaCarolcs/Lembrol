@@ -49,7 +49,6 @@ public class LoginActivity extends AppCompatActivity {
                 user.setPassword(password.getText().toString());
 
                 validateLogin();
-
             }
 
         });
@@ -62,7 +61,6 @@ public class LoginActivity extends AppCompatActivity {
         if (authentication.getCurrentUser() != null){
             openMainActivity();
         }
-
     }
 
     public void validateLogin(){
@@ -83,9 +81,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                     Toast.makeText(LoginActivity.this, "Sucesso ao fazer Login",
                                             Toast.LENGTH_LONG).show();
-
                                 }else{
-
                                     Toast.makeText(LoginActivity.this, "Erro ao fazer login",
                                             Toast.LENGTH_LONG).show();
 
@@ -107,8 +103,5 @@ public class LoginActivity extends AppCompatActivity {
 
         Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(intent);
-
     }
-
-
 }
