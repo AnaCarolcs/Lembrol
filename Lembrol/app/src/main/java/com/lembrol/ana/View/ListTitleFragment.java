@@ -47,7 +47,6 @@ public class ListTitleFragment extends android.app.Fragment {
                .child("user")
                .child(identifierUser);
 
-
        //Listener para recuperar titles
        valueEventListenerTitle = new ValueEventListener() {
            @Override

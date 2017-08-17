@@ -14,7 +14,6 @@ public final class FirebaseConfig {
         if(firebaseReference == null){
             firebaseReference = FirebaseDatabase.getInstance().getReference();
         }
-
         return firebaseReference;
     }
 

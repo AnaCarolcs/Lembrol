@@ -91,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
         final EditText editText = new EditText(MainActivity.this);
         alertDialog.setView(editText);
 
-
         //Configuração dos botões
         alertDialog.setPositiveButton("Adicionar", new DialogInterface.OnClickListener() {
             @Override
@@ -107,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
                     //Recupera identificador do usuario logado
                     Preference preference = new Preference(MainActivity.this);
                     final String userIdentifier = preference.getIdentifier();
-
 
                     firebase = FirebaseConfig.getFirebase().child("user").child(userIdentifier);
 
@@ -130,17 +128,14 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
         alertDialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
             }
         });
-
                 alertDialog.create();
                 alertDialog.show();
-
     }
 
     private void userLogout(){

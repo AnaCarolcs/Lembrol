@@ -52,11 +52,9 @@ public class LoginActivity extends AppCompatActivity {
             }
 
         });
-
     }
 
     private  void validateUserLoggerIn(){
-
         authentication = FirebaseConfig.getAuthenticationFirebase();
         if (authentication.getCurrentUser() != null){
             openMainActivity();
@@ -64,7 +62,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void validateLogin(){
-
         authentication = FirebaseConfig.getAuthenticationFirebase();
         authentication.signInWithEmailAndPassword( user.getEmail(), user.getPassword())
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -84,11 +81,9 @@ public class LoginActivity extends AppCompatActivity {
                                 }else{
                                     Toast.makeText(LoginActivity.this, "Erro ao fazer login",
                                             Toast.LENGTH_LONG).show();
-
                                 }
                             }
                         });
-
     }
 
     public void openMainActivity(){
@@ -96,7 +91,6 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
-
     }
 
     public void openUserRegister(View view){
